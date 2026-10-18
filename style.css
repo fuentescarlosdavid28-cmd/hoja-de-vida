@@ -1,0 +1,155 @@
+/* ========== Hoja de vida (index.html) · Base para celular ========== */
+
+/* R2 Mobile First: el CSS base es para celular; las @media (min-width) van al final */
+
+:root {
+  --fondo: #101322;
+  --texto: #ffffff;
+  --tinta: #101322;
+  --c-cab: #F72585;
+  --c-menu: #4CC9F0;
+  --c-prin: #FEE440;
+  --c-sec: #7209B7;
+  --c-pie: #3A0CA3;
+  --radio: 1.1rem;
+  --borde: 3px solid #ffffff;
+  --sombra: 6px 6px 0 #000000;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  background: var(--fondo);
+  color: var(--texto);
+}
+
+/* R7 Imágenes que no se desbordan */
+img { max-width: 100%; height: auto; display: block; }
+
+/* R6 Ancho máximo, centrado y unidades relativas */
+.sitio {
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* R4 Áreas del grid en celular: una sola columna */
+.sitio {
+  grid-template-areas:
+    "cabecera"
+    "menu"
+    "principal"
+    "habilidades"
+    "pie";
+}
+
+/* Bloques de la hoja de vida */
+.cabecera, .menu, .principal, .habilidades, .pie {
+  padding: 1rem;
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+}
+.cabecera {
+  grid-area: cabecera;
+  background: var(--c-cab);
+  color: var(--tinta);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+.menu { grid-area: menu; background: var(--c-menu); color: var(--tinta); }
+.principal { grid-area: principal; background: var(--c-prin); color: var(--tinta); }
+.habilidades { grid-area: habilidades; background: var(--c-sec); color: #ffffff; }
+.pie { grid-area: pie; background: var(--c-pie); color: #ffffff; text-align: center; }
+.pie p { margin: 0.25rem 0; }
+
+h1 { margin: 0; font-size: 1.75rem; line-height: 1.2; }
+h2 { margin: 0 0 0.5rem; font-size: 1.25rem; }
+h3 { margin: 0 0 0.25rem; font-size: 1.1rem; }
+p { margin: 0 0 0.75rem; }
+.cabecera p { margin: 0; }
+.principal h2:not(:first-child) { margin-top: 1rem; }
+
+.avatar {
+  width: 6rem;
+  height: 6rem;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+}
+
+a { color: inherit; }
+a:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
+}
+.menu a:focus-visible { outline-color: #101322; }
+
+/* R8 Menú igual en todas las páginas (en celular: fila de botones) */
+.menu ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.menu li { flex: 1 1 auto; }
+.menu a {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+  background: #ffffff;
+  color: var(--tinta);
+  border: 2px solid var(--tinta);
+  border-radius: var(--radio);
+}
+.menu a[aria-current="page"] { background: var(--tinta); color: #ffffff; }
+
+/* R5 Tarjetas de habilidades automáticas con repeat + minmax */
+.tarjetas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+.tarjetas li {
+  padding: 0.75rem;
+  background: #ffffff;
+  color: #101322;
+  border: 1px solid #101322;
+  border-radius: var(--radio);
+}
+.tarjetas p { margin: 0; }
+
+/* ========== Media queries (de menor a mayor) ========== */
+
+/* R3 Breakpoint 1: desde 600px */
+@media (min-width: 600px) {
+  .sitio { padding: 1.5rem; gap: 1rem; }
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 1.5rem; }
+  .cabecera { flex-direction: row; gap: 1.5rem; padding: 1.5rem; text-align: left; }
+  .avatar { width: 8rem; height: 8rem; }
+  .menu li { flex: 0 1 auto; }
+  .menu a { padding: 0.6rem 1.5rem; }
+}
+
+/* R3 y R4 Breakpoint 2: desde 1024px, el grid cambia de áreas */
+@media (min-width: 1024px) {
+  .sitio {
+    grid-template-columns: 15rem 1fr;
+    grid-template-areas:
+      "cabecera cabecera"
+      "menu principal"
+      "habilidades habilidades"
+      "pie pie";
+  }
+  .menu ul { flex-direction: column; }
+  .menu li { flex: 0 0 auto; }
+}
